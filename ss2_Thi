@@ -1,0 +1,38 @@
+create database ss2_convert_ERD_to_relational_model;
+use ss2_convert_ERD_to_relational_model;
+
+create table export_slip(
+	id_export int primary key auto_increment,
+    date_export date
+);
+
+create table supplies(
+	id_supplies int primary key auto_increment,
+    name_supplies varchar(50)
+);
+
+create table detail_export(
+	detail_id_export int,
+    detail_id_supplies int,
+    export_unit_price int,
+    export_quantity int,
+    primary key ( detail_id_export, detail_id_supplies),
+    foreign key (detail_id_export) references export_slip(id_export),
+    foreign key (detail_id_supplies) references supplies (id_supplies)
+);
+
+create table import_slip(
+	id_import int primary key auto_increment,
+    date_import date
+);
+
+create table detail_import(
+	detail_id_import int,
+    detail_id_supplies int,
+    import_unit_price int,
+    import_quantity int,
+    primary key ( detail_id_import, detail_id_supplies),
+    foreign key (detail_id_import) references import_slip(id_import),
+    foreign key (detail_id_supplies) references supplies (id_supplies)
+);
+

@@ -1,5 +1,6 @@
 create database ss1_database_relationship;
 use ss1_database_relationship;
+
 create table class (
 	id int primary key auto_increment,
     name varchar(50) not null
@@ -15,12 +16,11 @@ create table teacher(
 id int primary key auto_increment,
 name varchar(50) not null,
 age int,
-country varchar(50) not null,
+country varchar(50) not null
 );
 
 insert into teacher (name,age,country) value ('Nguyen Cong Thanh Danh',12,'Da Nang');
 select * from teacher;
-set sql_safe_updates = 0;
 update teacher set name = 'Ngo Tien Hung';
  delete from teacher;
  alter table teacher add email varchar(50);
@@ -44,4 +44,6 @@ delete from family where id = 1;
 delete from family where id = 3;
 delete from family where age;
 update family set name_member ='' where id =2;
-
+set sql_safe_updates =0;
+alter table class_room rename to classes;
+select * from classes;
