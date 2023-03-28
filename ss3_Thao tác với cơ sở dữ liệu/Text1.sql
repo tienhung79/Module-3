@@ -79,7 +79,7 @@ select * from subject_student where  credit_subject_student >=3 and credit_subje
 set sql_safe_updates = 0;
 update student set class_id_student = 2 where student_name like 'hung%';
 select s.student_name,sj.subject_student_name,m.mark 
-from student s inner 
-join subject_student sj on s.student_id = sj.subject_student_id
-join mark m on sj.subject_student_id = m.mark_id
+from mark m inner 
+join subject_student sj on m.sub_id = sj.subject_student_id
+join student s on m.student_id = s.student_id
 order by m.mark desc;
