@@ -61,5 +61,6 @@ inner join order_detail od on od.o_id = o.o_id
 inner join product p on od.p_id = p.p_id 
 group by o.o_id; 
 
+select * from customer c  join order_product o on c.c_id= o.o_id ;
 
 
