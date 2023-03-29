@@ -78,6 +78,7 @@ select * from class_student where class_student_start_date like '%-12-%';
 select * from subject_student where  credit_subject_student >=3 and credit_subject_student <= 5;
 set sql_safe_updates = 0;
 update student set class_id_student = 2 where student_name like 'hung%';
+
 select s.student_name,sj.subject_student_name,m.mark 
 from mark m inner 
 join subject_student sj on m.sub_id = sj.subject_student_id

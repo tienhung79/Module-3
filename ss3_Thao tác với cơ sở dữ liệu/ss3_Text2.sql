@@ -55,10 +55,11 @@ select c_name from customer c
 left join order_product o on c.c_id =  o.c_id 
 where o.c_id is null; 
 
-select o.o_id,o.o_date, p.p_price * od.od_qty as o_total_price from customer c 
+select o.o_id,o.o_date, sum(p.p_price * od.od_qty)  as o_total_price from customer c 
 inner join order_product o on c.c_id =  o.c_id
 inner join order_detail od on od.o_id = o.o_id
-inner join product p on od.p_id = p.p_id;
+inner join product p on od.p_id = p.p_id 
+group by o.o_id; 
 
 
 
