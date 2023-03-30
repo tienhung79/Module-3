@@ -82,4 +82,5 @@ select s.*, avg(m.mark)
 from student s
 inner join mark m on m.student_id = s.student_id
 group by s.student_id 
-order by avg(m.mark) desc;
+order by avg(m.mark) desc; 
+

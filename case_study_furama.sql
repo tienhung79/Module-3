@@ -207,6 +207,42 @@ values (5,2,4),
 		(2,1,2),
 		(2,12,2);
 
+select * from employees
+where name_employee like ('h%') or name_employee like ('t%') or name_employee like ('k%');
+
+select *, year(current_date())-year(date_of_birth_customer) as age_customer from customer
+where year(current_date())-year(date_of_birth_customer)>18 and  year(current_date())-year(date_of_birth_customer) < 50 and address_customer like ('%Đà Nẵng%') or address_customer like ('%Quảng Trị%');
+
+select customer.* ,count(contract.id_customer) from customer  
+inner join kind_customer on kind_customer.id_kind_customer = customer.id_kind_of_customer
+inner join contract on customer.id_customer = contract.id_customer
+where kind_customer.name_kind_customer = 'Diamond'
+group by contract.id_customer
+order by count(contract.id_customer);
+
+-- Hiển thị ma_khach_hang, ho_ten, ten_loai_khach, ma_hop_dong, ten_dich_vu, ngay_lam_hop_dong, ngay_ket_thuc, tong_tien 
+-- (Với tổng tiền được tính theo công thức như sau: Chi Phí Thuê + Số Lượng * Giá, với Số Lượng và Giá là từ bảng dich_vu_di_kem, hop_dong_chi_tiet)
+--  cho tất cả các khách hàng đã từng đặt phòng. (những khách hàng nào chưa từng đặt phòng cũng phải hiển thị ra).
+
+select customer.id_customer,name_customer,kind_customer.name_kind_customer,contract.id_contract,service.name_service,
+contract.date_start_contract,contract.date_finish_contract,ifnull(sum(quantity_contract*price_accompanied_service),0)+service.cost_service
+ as sum from kind_customer 
+inner join customer on customer.id_kind_of_customer = kind_customer.id_kind_customer
+inner join contract on customer.id_customer = contract.id_customer
+left join service on service.id_service = contract.id_service
+left join detail_contract on contract.id_contract = detail_contract.id_contract
+left join accompanied_service on accompanied_service.id_accompanied_service = detail_contract.id_service 
+group by customer.id_customer ;
+set global sql_mode=(select replace(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     
+
+
+
+
+
+
+
+
+
 
 
 
