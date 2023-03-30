@@ -73,3 +73,13 @@ values (1, 1, 8, 1),
        
 select * from subject_student
 where credit_subject_student=(select max(credit_subject_student) from subject_student) ;
+
+select * from subject_student s
+inner join mark m on m.sub_id = subject_student_id
+where m.mark = (select max(m.mark)from mark);
+
+select s.*, avg(m.mark)
+from student s
+inner join mark m on m.student_id = s.student_id
+group by s.student_id 
+order by avg(m.mark) desc;
