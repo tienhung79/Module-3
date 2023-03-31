@@ -206,13 +206,16 @@ values (5,2,4),
 		(1,1,3),
 		(2,1,2),
 		(2,12,2);
-
+-- Hiển thị thông tin của tất cả nhân viên có trong hệ thống có tên bắt đầu là một trong các ký tự “H”, “T” hoặc “K” và có tối đa 15 kí tự.
 select * from employees
 where name_employee like ('h%') or name_employee like ('t%') or name_employee like ('k%');
 
+-- Hiển thị thông tin của tất cả khách hàng có độ tuổi từ 18 đến 50 tuổi và có địa chỉ ở “Đà Nẵng” hoặc “Quảng Trị”.
 select *, year(current_date())-year(date_of_birth_customer) as age_customer from customer
 where year(current_date())-year(date_of_birth_customer)>18 and  year(current_date())-year(date_of_birth_customer) < 50 and address_customer like ('%Đà Nẵng%') or address_customer like ('%Quảng Trị%');
 
+-- Đếm xem tương ứng với mỗi khách hàng đã từng đặt phòng bao nhiêu lần. Kết quả hiển thị được sắp xếp tăng dần
+-- theo số lần đặt phòng của khách hàng. Chỉ đếm những khách hàng nào có Tên loại khách hàng là “Diamond”.
 select customer.* ,count(contract.id_customer) from customer  
 inner join kind_customer on kind_customer.id_kind_customer = customer.id_kind_of_customer
 inner join contract on customer.id_customer = contract.id_customer
@@ -235,10 +238,58 @@ left join accompanied_service on accompanied_service.id_accompanied_service = de
 group by customer.id_customer ;
 set global sql_mode=(select replace(@@sql_mode,'ONLY_FULL_GROUP_BY',''));     
 
+-- Hiển thị ma_dich_vu, ten_dich_vu, dien_tich, chi_phi_thue, 
+-- ten_loai_dich_vu của tất cả các loại dịch vụ chưa từng được khách hàng thực hiện đặt từ quý 1 của năm 2021 (Quý 1 là tháng 1, 2, 3).
 
+select service.id_service, service.name_service, service.area_service, service.cost_service, contract.date_start_contract
+, contract.date_finish_contract
+from  kind_service
+inner join  service on kind_service.id_kind_service = service.id_kind_service
+inner join contract on contract.id_service =  service.id_service
+inner join customer on contract.id_customer = customer.id_customer
+where service.id_service not in (
+select service.id_service
+from  kind_service
+inner join  service on kind_service.id_kind_service = service.id_kind_service
+inner join contract on contract.id_service =  service.id_service
+inner join customer on contract.id_customer = customer.id_customer
+where   (contract.date_start_contract)>='2021-01-01' and date(contract.date_start_contract) <= '2021-03-31' or  year(contract.date_start_contract) = '2020' );
 
+-- Hiển thị thông tin ma_dich_vu, ten_dich_vu, dien_tich, so_nguoi_toi_da, chi_phi_thue, ten_loai_dich_vu của tất cả các loại dịch vụ 
+-- đã từng được khách hàng đặt phòng trong năm 2020 nhưng chưa từng được khách hàng đặt phòng trong năm 2021. 
 
+select service.id_service, service.name_service, service.area_service, service.max_people_service ,service.cost_service, contract.date_start_contract
+, contract.date_finish_contract, contract.id_contract
+from  kind_service
+inner join  service on kind_service.id_kind_service = service.id_kind_service
+inner join contract on contract.id_service =  service.id_service
+where year(contract.date_start_contract) = 2020;
 
+-- Hiển thị thông tin ho_ten khách hàng có trong hệ thống, với yêu cầu ho_ten không trùng nhau
+-- Cách 1 
+select customer.name_customer from customer
+union select customer.name_customer from customer; 
+-- Cách 2
+select distinct name_customer from customer;
+-- Cách 3
+select name_customer from customer
+group by name_customer;
+
+-- Thực hiện thống kê doanh thu theo tháng, nghĩa là tương ứng với mỗi tháng trong năm 2021 thì sẽ có bao nhiêu khách hàng thực hiện đặt phòng
+
+select month(contract.date_start_contract),count(contract.id_customer) from  contract 
+where year(contract.date_start_contract) = 2021
+group by month(contract.date_start_contract); 
+
+-- Hiển thị thông tin tương ứng với từng hợp đồng thì đã sử dụng bao nhiêu dịch vụ đi kèm. 
+-- Kết quả hiển thị bao gồm ma_hop_dong, ngay_lam_hop_dong, ngay_ket_thuc, tien_dat_coc, 
+-- so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem).
+
+select contract.id_contract,contract.date_start_contract,contract.date_finish_contract, contract.deposits_contract, sum(detail_contract.quantity_contract) 
+from contract
+left join detail_contract on detail_contract.id_contract = contract.id_contract
+left join accompanied_service on accompanied_service.id_accompanied_service = detail_contract.id_service 
+group by contract.id_contract; 
 
 
 
