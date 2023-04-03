@@ -359,12 +359,65 @@ if(contract.id_contract =0,0,count(contract.id_contract)) from employees
 left join contract on employees.id_employee = contract.id_employees
 left join department on department.id_department = employees.id_department_employee
 left join level_employees on level_employees.id_employees = employees.id_level_employee
-group by employees.id_employee having count(employees.id_employee) <3
+group by employees.id_employee having count(employees.id_employee) <3;
+
+-- 16.	Xóa những Nhân viên chưa từng lập được hợp đồng nào từ năm 2019 đến năm 2021.
+
+set sql_safe_updates =0;
+
+delete from employees 
+where employees.id_employee 
+not in (select contract.id_employees from contract where year(contract.date_start_contract)>=2019 and year(contract.date_start_contract)<=2021);
+
+-- 17.	Cập nhật thông tin những khách hàng có ten_loai_khach từ Platinum lên Diamond, 
+-- chỉ cập nhật những khách hàng đã từng đặt phòng với Tổng Tiền thanh toán trong năm 2021 là lớn hơn 10.000.000 VNĐ.
+
+update  customer
+set customer.id_kind_of_customer = 1 
+where customer.id_kind_of_customer in (
+select id_kind_of_customer from customer_view
+where id_kind_of_customer = 2
+and sum >10000000
+);
+
+create view customer_view (id_contract,id_customer,id_kind_of_customer,sum) as 
+select contract.id_contract ,contract.id_customer,customer.id_kind_of_customer,ifnull(sum(quantity_contract*price_accompanied_service),0)  + service.cost_service as sum
+from  kind_customer 
+left join customer on  kind_customer.id_kind_customer = customer.id_kind_of_customer
+left join contract on contract.id_customer = customer.id_customer
+left join service on service.id_service = contract.id_service
+left join detail_contract on contract.id_contract = detail_contract.id_contract
+left join accompanied_service on accompanied_service.id_accompanied_service = detail_contract.id_service 
+group by customer.id_customer;
+
+-- 18.	Xóa những khách hàng có hợp đồng trước năm 2021 (chú ý ràng buộc giữa các bảng).
+
+SET FOREIGN_KEY_CHECKS = 0;
+delete from customer 
+where customer.id_customer in (select contract.id_customer from contract where year(contract.date_start_contract) < 2021   );
+SET FOREIGN_KEY_CHECKS = 1;
+-- 19.	Cập nhật giá cho các dịch vụ đi kèm được sử dụng trên 10 lần trong năm 2020 lên gấp đôi.
+
+SET SQL_SAFE_UPDATES=0;
+update accompanied_service inner join (select accompanied_service.id_accompanied_service as abc
+from customer 
+inner join contract 
+inner join detail_contract on contract.id_contract = detail_contract.id_contract
+inner join accompanied_service on detail_contract.id_service = accompanied_service.id_accompanied_service
+group by accompanied_service.id_accompanied_service
+having count(accompanied_service.name_accompanied_service)>10 ) temp
+on accompanied_service.id_accompanied_service = temp.abc
+set accompanied_service.price_accompanied_service = accompanied_service.price_accompanied_service * 10;
 
 
+-- 20.	Hiển thị thông tin của tất cả các nhân viên và khách hàng có trong hệ thống, 
+-- thông tin hiển thị bao gồm id (ma_nhan_vien, ma_khach_hang), ho_ten, email, so_dien_thoai, ngay_sinh, dia_chi.
 
-
-
+select employees.id_employee, employees.name_employee,employees.email_employee,employees.phone_number_employee, employees.date_of_birth_employee,employees.address_employee,
+customer.id_customer, customer.name_customer, customer.email_customer, customer.phone_number_customer, customer.date_of_birth_customer, customer.address_customer
+ from employees 
+left join contract on contract.id_employees = employees.id_employee
+left join customer on contract.id_customer = customer.id_customer
 
 
 
