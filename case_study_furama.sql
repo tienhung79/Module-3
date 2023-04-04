@@ -303,7 +303,8 @@ left join service on service.id_service = contract.id_service
 left join detail_contract on contract.id_contract = detail_contract.id_contract
 left join accompanied_service on accompanied_service.id_accompanied_service = detail_contract.id_service
 where kind_customer.name_kind_customer = 'Diamond' and ( customer.address_customer like '%Vinh' 
-or customer.address_customer like  '%Quãng Ngãi');
+or customer.address_customer like  '%Quãng Ngãi')
+ group by accompanied_service.id_accompanied_service  ;
 
 -- 12. Hiển thị thông tin ma_hop_dong, ho_ten (nhân viên), ho_ten (khách hàng), so_dien_thoai (khách hàng), ten_dich_vu,
 --  so_luong_dich_vu_di_kem (được tính dựa trên việc sum so_luong ở dich_vu_di_kem),
