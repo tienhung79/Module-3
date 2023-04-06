@@ -65,6 +65,12 @@
 .bg-gray {
     background: #bab9b9;
 }
+.style-title{
+    position: fixed;
+    background-color: aqua;
+    margin-top: 0px ;
+
+}
 .button-text {
     border: none;
     background: black;
@@ -76,5 +82,21 @@ button:hover {
 .style-menu{
     text-align: center;
     background-color: red;
+    position: fixed;
+    margin-top: 50px;
+
 }
+.style-video-min{
+    background-color: chartreuse;
+    height: 1000px;
+}
+.style-body{
+    margin-top: 100px;
+}
+.style-video-max{
+    background-color: yellow;
+    height: 1000px;
+}
+
+
 
