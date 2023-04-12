@@ -10,9 +10,14 @@ public class CaculatorServlet extends HttpServlet {
         float first = Integer.parseInt(request.getParameter("firstOperand"));
         float second = Integer.parseInt(request.getParameter("secondNumber"));
         char operater = request.getParameter("operator").charAt(0);
-        float result = Caculator.result(first, second, operater);
-        request.setAttribute("result",result);
-        request.getRequestDispatcher("/Text2.jsp").forward(request,response);
+        try {
+            float result = Caculator.result(first, second, operater);
+            request.setAttribute("result",result);
+            request.getRequestDispatcher("/Text2.jsp").forward(request,response);
+        }catch (Exception e){
+            request.getRequestDispatcher("/404NotFound.jsp").forward(request, response);
+        }
+
     }
 
     @Override

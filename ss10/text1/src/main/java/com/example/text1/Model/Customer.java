@@ -1,8 +1,9 @@
-package Model;
+package com.example.text1.Model;
 
 import org.omg.PortableInterceptor.ServerRequestInfo;
 
 public class Customer {
+    private int id;
     private String name;
     private String dateOfBirh;
     private String add;
@@ -11,11 +12,20 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String name, String dateOfBirh, String add, String image) {
+    public Customer(int id, String name, String dateOfBirh, String add, String image) {
+        this.id = id;
         this.name = name;
         this.dateOfBirh = dateOfBirh;
         this.add = add;
         this.image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -50,3 +60,6 @@ public class Customer {
         this.image = image;
     }
 }
+
+
+

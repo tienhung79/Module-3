@@ -19,10 +19,13 @@
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <body>
+<button type="button"><a href="/CustomerServlet?actionUser=create">Create</a></button>
+
 <table class="table" border="1px">
     <thead>
     <tr>
         <th>OB</th>
+        <th>ID</th>
         <th>Name</th>
         <th>Date of Birh</th>
         <th>address</th>
@@ -35,6 +38,7 @@
     <c:forEach var="Customer" items="${customerList}" varStatus="loop">
         <tr>
             <td scope="row">${loop.count}</td>
+            <td> ${Customer.getId()}</td>
             <td> ${Customer.getName()}</td>
             <td> ${Customer.getDateOfBirh()}</td>
             <td> ${Customer.getAdd()}</td>
