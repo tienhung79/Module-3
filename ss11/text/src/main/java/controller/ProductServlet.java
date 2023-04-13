@@ -76,7 +76,7 @@ public class ProductServlet extends HttpServlet {
             case "find":
                 String nameFind = request.getParameter("name");
                 productService.find(nameFind);
-                request.setAttribute("productListFind", productService.find(nameFind));
+                request.setAttribute("productList", productService.find(nameFind));
                 request.getRequestDispatcher("/view/view.jsp").forward(request, response);
                 break;
             case "detail":
