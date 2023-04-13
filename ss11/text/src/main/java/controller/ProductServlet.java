@@ -35,11 +35,23 @@ public class ProductServlet extends HttpServlet {
                 response.sendRedirect("/ProductServlet");
                 break;
             case "find":
-                request.getRequestDispatcher("/view/find.jsp").forward(request, response);
+                String nameFind = request.getParameter("name");
+                productService.find(nameFind);
+                request.setAttribute("productList", productService.find(nameFind));
+                request.getRequestDispatcher("/view/view.jsp").forward(request, response);
                 break;
+//            case "find":
+//                request.getRequestDispatcher("/view/detailProduct.jsp").forward(request, response);
+//                break;
             case "detail":
-                request.getRequestDispatcher("/view/detailProduct.jsp").forward(request, response);
+                int idDetail = Integer.parseInt(request.getParameter("id"));
+                productService.detail(idDetail);
+                request.setAttribute("productList", productService.detail(idDetail));
+                request.getRequestDispatcher("view/detailProduct.jsp").forward(request, response);
                 break;
+//            case "detail":
+//                request.getRequestDispatcher("/view/detailProduct.jsp").forward(request, response);
+//                break;
             default:
                 request.setAttribute("productList", productService.disPlay());
                 request.getRequestDispatcher("/view/view.jsp").forward(request, response);
@@ -73,18 +85,18 @@ public class ProductServlet extends HttpServlet {
                 productService.update(idUpdate, productUpdate);
                 response.sendRedirect("/ProductServlet");
                 break;
-            case "find":
-                String nameFind = request.getParameter("name");
-                productService.find(nameFind);
-                request.setAttribute("productList", productService.find(nameFind));
-                request.getRequestDispatcher("/view/view.jsp").forward(request, response);
-                break;
-            case "detail":
-                int idDetail = Integer.parseInt(request.getParameter("id"));
-                productService.detail(idDetail);
-                request.setAttribute("productList", productService.detail(idDetail));
-                request.getRequestDispatcher("/view/view.jsp").forward(request, response);
-                break;
+//            case "find":
+//                String nameFind = request.getParameter("name");
+//                productService.find(nameFind);
+//                request.setAttribute("productList", productService.find(nameFind));
+//                request.getRequestDispatcher("/view/view.jsp").forward(request, response);
+//                break;
+//            case "detail":
+//                int idDetail = Integer.parseInt(request.getParameter("id"));
+//                productService.detail(idDetail);
+//                request.setAttribute("productList", productService.detail(idDetail));
+//                request.getRequestDispatcher("view/detailProduct.jsp").forward(request, response);
+//                break;
             default:
                 request.setAttribute("productList", productService.disPlay());
                 request.getRequestDispatcher("/view/view.jsp").forward(request, response);

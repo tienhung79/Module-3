@@ -44,6 +44,8 @@
             </td>
             <td><a class="btn btn-info" href="/ProductServlet?actionUser=delete&id=${product.getId()}" role="button">Delete</a>
             </td>
+            <td><a class="btn btn-info" href="/ProductServlet?actionUser=detail&id=${product.getId()}" role="button">Detail</a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
@@ -51,8 +53,13 @@
 
 </table>
 <a class="btn btn-info" href="/ProductServlet?actionUser=create" role="button">Create</a>
-<a class="btn btn-info" href="/ProductServlet?actionUser=find" role="button">Find by Name</a>
-<a class="btn btn-info" href="/ProductServlet?actionUser=detail" role="button">Show Detail Name</a>
+<form action="/ProductServlet">
+    <input type="text" name="name" id="name">
+    <button type="submit" value="find" name="actionUser">Find by Name</button>
+    <%--  <button type="submit"><a class="btn btn-info" href="/ProductServlet?actionUser=find">find</a></button>--%>
+
+</form>
+<%--<a class="btn btn-info" href="/ProductServlet?actionUser=detail" role="button">Show Detail Name</a>--%>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
