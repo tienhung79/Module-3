@@ -27,6 +27,9 @@
         <th>Price</th>
         <th>Description</th>
         <th>Producer</th>
+        <th>Edit</th>
+        <th>Delete</th>
+
     </tr>
     </thead>
     <tbody>
@@ -37,6 +40,10 @@
             <td>${product.getPrice()}</td>
             <td>${product.getDescription()}</td>
             <td>${product.getProducer()}</td>
+            <td><a class="btn btn-info" href="/ProductServlet?actionUser=update&id=${product.getId()}" role="button">Update</a>
+            </td>
+            <td><a class="btn btn-info" href="/ProductServlet?actionUser=delete&id=${product.getId()}" role="button">Delete</a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
@@ -64,8 +71,6 @@
     </tbody>
 </table>
 <a class="btn btn-info" href="/ProductServlet?actionUser=create" role="button">Create</a>
-<a class="btn btn-info" href="/ProductServlet?actionUser=update" role="button">Update</a>
-<a class="btn btn-info" href="/ProductServlet?actionUser=delete" role="button">Delete</a>
 <a class="btn btn-info" href="/ProductServlet?actionUser=find" role="button">Find by Name</a>
 <a class="btn btn-info" href="/ProductServlet?actionUser=detail" role="button">Show Detail Name</a>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

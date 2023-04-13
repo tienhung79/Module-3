@@ -16,4 +16,6 @@ public interface IProductService {
     List<Product> find(String nameFind);
 
     List<Product> detail(int idDetail);
+
+    Product findID(int id);
 }

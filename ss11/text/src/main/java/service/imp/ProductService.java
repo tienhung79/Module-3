@@ -59,4 +59,15 @@ public class ProductService implements IProductService {
         return null;
     }
 
+    @Override
+    public Product findID(int id) {
+        List<Product> productList = productRepository.getAll();
+        for (int i = 0; i < productList.size(); i++) {
+            if(productList.get(i).getId()==id){
+                return productRepository.findId(i);
+            }
+        }
+        return null;
+    }
+
 }

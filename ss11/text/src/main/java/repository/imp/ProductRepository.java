@@ -53,5 +53,10 @@ public class ProductRepository implements IProductRepository {
         return productsDetail ;
     }
 
+    @Override
+    public Product findId(int i) {
+        return productList.get(i);
+    }
+
 
 }

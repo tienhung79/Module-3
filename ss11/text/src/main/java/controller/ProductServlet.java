@@ -24,11 +24,14 @@ public class ProductServlet extends HttpServlet {
                 request.getRequestDispatcher("/view/create.jsp").forward(request, response);
                 break;
             case "update":
+                int id =  Integer.parseInt(request.getParameter("id"));
+                Product product = productService.findID(id);
+                request.setAttribute("product",product);
                 request.getRequestDispatcher("/view/update.jsp").forward(request, response);
                 break;
-            case "delete":
-                request.getRequestDispatcher("/view/Delete.jsp").forward(request, response);
-                break;
+//            case "delete":
+//                request.getRequestDispatcher("/view/Delete.jsp").forward(request, response);
+//                break;
             case "find":
                 request.getRequestDispatcher("/view/find.jsp").forward(request, response);
                 break;

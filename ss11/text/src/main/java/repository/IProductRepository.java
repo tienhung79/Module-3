@@ -17,4 +17,6 @@ public interface IProductRepository {
 
 
     List<Product> detail(int i);
+
+    Product findId(int i);
 }
