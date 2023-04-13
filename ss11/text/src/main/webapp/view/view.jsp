@@ -47,28 +47,8 @@
         </tr>
     </c:forEach>
     </tbody>
-</table>
-<table class="table">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Description</th>
-        <th>Producer</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="product" items="${productListFind}">
-        <tr>
-            <td scope="row">${product.getId()}</td>
-            <td>${product.getName()}</td>
-            <td>${product.getPrice()}</td>
-            <td>${product.getDescription()}</td>
-            <td>${product.getProducer()}</td>
-        </tr>
-    </c:forEach>
-    </tbody>
+
+
 </table>
 <a class="btn btn-info" href="/ProductServlet?actionUser=create" role="button">Create</a>
 <a class="btn btn-info" href="/ProductServlet?actionUser=find" role="button">Find by Name</a>

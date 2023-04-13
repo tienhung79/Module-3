@@ -29,9 +29,11 @@ public class ProductServlet extends HttpServlet {
                 request.setAttribute("product",product);
                 request.getRequestDispatcher("/view/update.jsp").forward(request, response);
                 break;
-//            case "delete":
-//                request.getRequestDispatcher("/view/Delete.jsp").forward(request, response);
-//                break;
+            case "delete":
+                int idDelete = Integer.parseInt(request.getParameter("id"));
+                productService.delete(idDelete);
+                response.sendRedirect("/ProductServlet");
+                break;
             case "find":
                 request.getRequestDispatcher("/view/find.jsp").forward(request, response);
                 break;
@@ -71,11 +73,6 @@ public class ProductServlet extends HttpServlet {
                 productService.update(idUpdate, productUpdate);
                 response.sendRedirect("/ProductServlet");
                 break;
-            case "delete":
-                int idDelete = Integer.parseInt(request.getParameter("id"));
-                productService.delete(idDelete);
-                response.sendRedirect("/ProductServlet");
-                break;
             case "find":
                 String nameFind = request.getParameter("name");
                 productService.find(nameFind);
@@ -85,7 +82,7 @@ public class ProductServlet extends HttpServlet {
             case "detail":
                 int idDetail = Integer.parseInt(request.getParameter("id"));
                 productService.detail(idDetail);
-                request.setAttribute("productListFind", productService.detail(idDetail));
+                request.setAttribute("productList", productService.detail(idDetail));
                 request.getRequestDispatcher("/view/view.jsp").forward(request, response);
                 break;
             default:
