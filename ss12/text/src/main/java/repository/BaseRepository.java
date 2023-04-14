@@ -4,10 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Repository {
+public class BaseRepository {
 
 
-    private static String jdbcURL = "jdbc:mysql://localhost:3306/BDName";
+    private static String jdbcURL = "jdbc:mysql://localhost:3306/Student";
     private static String jdbcUsername = "root";
     private static String jdbcPassword = "bebong1508";
     private static Connection connection;
