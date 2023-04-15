@@ -84,4 +84,16 @@ public class UserRepository implements IUserRepository {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void deteleById(int idDelete) {
+        try {
+            PreparedStatement preparedStatement = BaseRepository.getConnection()
+                    .prepareStatement("delete from users where id =?");
+            preparedStatement.setInt(1,idDelete);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

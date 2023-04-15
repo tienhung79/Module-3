@@ -30,6 +30,12 @@ public class UserServlet extends HttpServlet {
                 User user = userService.findById(id);
                 request.setAttribute("user", user );
                 request.getRequestDispatcher("view/update.jsp").forward(request,response);
+                break;
+            case "delete":
+                int idDelete = Integer.parseInt(request.getParameter("idDelete"));
+                userService.deteleById(idDelete);
+                response.sendRedirect("/UserServlet");
+                break;
             default:
                 String name = request.getParameter("name");
                 request.setAttribute("userData", userService.disPlayByName(name));

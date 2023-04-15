@@ -14,4 +14,6 @@ public interface IUserService
     User findById(int id);
 
     void update(int idUpdate, User userUpdate);
+
+    void deteleById(int idDelete);
 }

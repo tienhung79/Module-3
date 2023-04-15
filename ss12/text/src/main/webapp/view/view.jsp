@@ -41,8 +41,15 @@
             <td>${user.getName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
-           <td> <a class="btn btn-dark" href="/UserServlet?actionUser=update&id=${user.getId()}"
-               role="button">Update</a></td>
+            <td><a class="btn btn-dark" href="/UserServlet?actionUser=update&id=${user.getId()}"
+                   role="button">Update</a></td>
+            <td><!-- Button trigger modal -->
+                <button type="button" onclick="changeDeleteId(${user.getId()},'${user.getName()}')"
+                        class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#modelId">
+                    Delete
+                </button>
+            </td>
+
         </tr>
     </c:forEach>
     </tbody>
@@ -51,5 +58,38 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modelTitleId"></h4>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa <span class="text-danger" id="nameDelete"> </span>
+            </div>
+            <div class="modal-footer">
+                <form action="/UserServlet">
+                    <input type="hidden" name="actionUser" value="delete">
+                    <input type="hidden" name="idDelete" id="idDelete">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function changeDeleteId(id, name) {
+        document.getElementById("idDelete").value = id;
+        document.getElementById("nameDelete").innerText = name;
+    }
+</script>
 </body>
 </html>
