@@ -27,7 +27,7 @@
 <table class="table">
     <thead>
     <tr>
-        <th>ID</th>
+        <th>STT</th>
         <th>Name</th>
         <th>Email</th>
         <th>Country</th>
@@ -35,9 +35,10 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="user" items="${userData}">
+    <c:forEach var="user" items="${userData}" varStatus="count">
         <tr>
-            <td scope="row">${user.getId()}</td>
+<%--            <td scope="row">${user.getId()}</td>--%>
+            <td>${count.count}</td>
             <td>${user.getName()}</td>
             <td>${user.getEmail()}</td>
             <td>${user.getCountry()}</td>
