@@ -16,4 +16,6 @@ public interface IUserService
     void update(int idUpdate, User userUpdate);
 
     void deteleById(int idDelete);
+
+    void addUserPermission();
 }

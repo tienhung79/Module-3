@@ -36,4 +36,9 @@ public class UserService implements IUserService {
     public void deteleById(int idDelete) {
         userRepository.deteleById(idDelete);
     }
+
+    @Override
+    public void addUserPermission() {
+        userRepository.addUserPermission();
+    }
 }

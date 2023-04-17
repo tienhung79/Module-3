@@ -4,10 +4,7 @@ import model.User;
 import repository.BaseRepository;
 import repository.IUserRepository;
 
-import java.sql.CallableStatement;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,6 +124,29 @@ public class UserRepository implements IUserRepository {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void addUserPermission() {
+        Connection connection = null;
+        try {
+            connection = BaseRepository.getConnection();
+            connection.setAutoCommit(false);
+
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into users(name, email, country) values ('Đào', 'dao@gmail.com', 'Mỹ')");
+            preparedStatement.executeUpdate();
+            PreparedStatement preparedStatement1 = connection.prepareStatement("insert into users(name, email, country) values ('Huy', 'huy@gmail.com', 'Lào')");
+            preparedStatement1.executeUpdate();
+
+            connection.commit();
+        } catch (SQLException e) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
         }
     }
 }

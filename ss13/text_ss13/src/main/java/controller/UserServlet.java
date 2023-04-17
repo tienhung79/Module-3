@@ -36,6 +36,10 @@ public class UserServlet extends HttpServlet {
                 userService.deteleById(idDelete);
                 response.sendRedirect("/UserServletss13");
                 break;
+            case "addUserPermission":
+                userService.addUserPermission();
+                response.sendRedirect("/UserServletss13");
+                break;
             default:
                 String name = request.getParameter("name");
                 request.setAttribute("userData", userService.disPlayByName(name));

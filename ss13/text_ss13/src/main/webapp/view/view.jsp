@@ -55,6 +55,7 @@
     </c:forEach>
     </tbody>
 </table>
+
 <script>
     function changeDeleteId(id, name) {
         document.getElementById("idDelete").value = id;
